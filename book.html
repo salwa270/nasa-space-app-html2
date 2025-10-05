@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Tourism - Your Gateway to the Stars</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary-color: #00aaff;
+            --dark-bg: #0c0c1e;
+            --light-bg: #1a1a2e;
+            --text-color: #f0f0f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            text-align: right;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* --- New Navigation Bar Styles --- */
+       /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      background-color: rgba(14, 20, 40, 0.9);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #A2D9FF;
+      font-family: "Pacifico", cursive;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .navbar ul li {
+      margin-right: 25px;
+    }
+
+    .navbar ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      opacity: 1;
+      color: #A2D9FF;
+    }
+
+        
+        /* --- Old Nav Overrides (Removed/Modified) --- */
+        /* التنسيقات القديمة التي كانت على وسم nav تم استبدالها بـ .navbar */
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* --- Hero Section - Adjusted for fixed navbar --- */
+        .hero-section {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600');
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            flex-direction: column;
+            padding: 0 5%;
+            /* إضافة مسافة علوية لتجنب اختفاء المحتوى تحت شريط التنقل الثابت */
+            padding-top: 80px; 
+        }
+
+        .hero-text {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #0088cc;
+            transform: translateY(-3px);
+        }
+
+        /* --- Countdown Timer --- */
+        .countdown-container {
+            margin-top: 50px;
+        }
+        .countdown-container h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .countdown div {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            min-width: 80px;
+        }
+        .countdown span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            padding: 80px 10%;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .content-section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 20px auto 0;
+        }
+
+        .dark-section {
+            background-color: var(--light-bg);
+        }
+
+        /* --- Cards for Experience Section --- */
+        .card-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: var(--light-bg);
+            border-radius: 15px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 170, 255, 0.3);
+        }
+
+        .card .card-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        /* --- Feature Sections (Safety & Booking) --- */
+        .feature-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        .feature-content.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .feature-image {
+            flex: 1;
+            height: 350px;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-width: 300px;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        /* --- Partners Section --- */
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .logos span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #aaa;
+            transition: color 0.3s;
+        }
+
+        .logos span:hover {
+            color: #fff;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #bbb;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- FAQ Section --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--light-bg);
+            padding: 15px 0;
+        }
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .faq-question::after {
+            content: '+';
+            font-size: 2rem;
+            transition: transform 0.3s;
+            margin-left: 20px;
+        }
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            color: #ccc;
+            padding-right: 15px;
+        }
+
+        /* --- Booking Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(-50px);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0);
+        }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-button:hover { color: #fff; }
+        #booking-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #booking-form input, #booking-form select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--dark-bg);
+            border-top: 1px solid var(--light-bg);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { font-size: 1.2rem; }
+            .feature-content, .feature-content.reverse { flex-direction: column; }
+            .countdown div { min-width: 60px; padding: 5px 10px; }
+            .countdown span { font-size: 1.8rem; }
+            
+            .hamburger { display: block; z-index: 1001; }
+            .navbar ul {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                width: 60%;
+                background-color: var(--light-bg);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+            .navbar ul.nav-active {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero-section">
+         <nav class="navbar">
+    <div class="logo">FUTURE ORBIT</div>
+    <ul>
+        <li><a href="home.html">Home</a></li>
+      <li><a href="debries.html">Deberis</a></li>
+      <li><a href="shopping.html">Shopping</a></li>
+      <li><a href="book.html">Book a ticket</a></li>
+      
+    </ul>
+  </nav>
+        <div class="hero-text">
+            <h1>Your Next Journey... Beyond Imagination</h1>
+            <p>Embark on a unique space tourism experience in Earth’s orbit for 3-5 days.</p>
+            <a href="#" class="cta-button">Book Your Seat Now</a>
+            <div class="countdown-container">
+                <h3>Next mission launches in:</h3>
+                <div id="countdown" class="countdown">
+                    <div><span id="days">00</span>Days</div>
+                    <div><span id="hours">00</span>Hours</div>
+                    <div><span id="minutes">00</span>Minutes</div>
+                    <div><span id="seconds">00</span>Seconds</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="experience" class="content-section">
+            <h2>🌍 An Unforgettable Experience</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-image" style="background-image: url('../images/orbital.jpg');"></div>
+                    <h3>Orbital Hotel Capsules</h3>
+                    <p>Luxury stay in fully equipped small capsules orbiting Earth, with panoramic views of the planet.</p>
+                </div>
+                <div class="card">
+                    <div class="card-image" style="background-image: url('../images/exelusive.jpg');"></div>
+                    <h3>Exclusive Activities</h3>
+                    <p>Enjoy zero-gravity experiences, professional photo sessions, and specially designed space meals.</p>
+                </div>
+                <div class="card">
+                    <div class="card-image" style="background-image: url('../images/live.jpg');"></div>
+                    <h3>Live Broadcast</h3>
+                    <p>Share your adventure live with your friends via 360° VR streaming so they feel like they’re with you.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="safety" class="content-section dark-section">
+            <h2>🛡 Safety First: Debris Avoidance System</h2>
+            <div class="feature-content">
+                 <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200');"></div>
+                <div class="feature-text">
+                    <h3>Advanced AI System</h3>
+                    <p>We use a network of sensors and AI technology to detect space debris in real-time, ensuring safe trajectory planning for your trip.</p>
+                    <h3>Additional Revenue Source</h3>
+                    <p>Our precise data can be shared with global space agencies such as NASA and SpaceX, opening new commercial opportunities.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking" class="content-section">
+            <h2>📲 Commercial Platform: Everything at Your Fingertips</h2>
+             <div class="feature-content reverse">
+                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200');"></div>
+                <div class="feature-text">
+                    <h3>Easiest Booking Ever</h3>
+                    <p>Through our app and website, you can book your next journey with ease, just like booking an Uber ride.</p>
+                    <h3>Customize Your Dream Trip</h3>
+                    <p>Upgrade your seat, order special meals, purchase high-res photos, or get unique space merchandise from our store.</p>
+                    <h3>Global Partnerships</h3>
+                    <p>Imagine enjoying Starbucks coffee in zero gravity! We partner with global brands to make your experience legendary.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="partners" class="content-section dark-section">
+            <h2>🤝 Our Partners</h2>
+            <p class="subtitle">We collaborate with leaders in the space industry to make this dream possible.</p>
+            <div class="logos">
+                <span>SpaceX</span>
+                <span>Blue Origin</span>
+                <span>Axiom Space</span>
+                <span>NASA</span>
+                <span>ESA</span>
+            </div>
+        </section>
+
+        <section id="faq" class="content-section">
+            <h2>FAQ</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">How long is the trip?</button>
+                    <div class="faq-answer">
+                        <p>The standard trip lasts between 3 to 5 days, giving you enough time to enjoy breathtaking views and zero-gravity experiences.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Is training required before the trip?</button>
+                    <div class="faq-answer">
+                        <p>Yes, all tourists go through a simplified but intensive training program to ensure their safety and adaptability in space.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What does the cost include?</button>
+                    <div class="faq-answer">
+                        <p>The cost covers your orbital capsule stay, all meals and drinks, scheduled activities, training, and travel insurance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 StarGate Space Tourism. All rights reserved.</p>
+    </footer>
+
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Register Your Interest</h2>
+            <p>Fill in the details and we’ll get back to you with all info and pricing.</p>
+            <form id="booking-form">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <select required>
+                    <option value="">Select Number of Travelers</option>
+                    <option value="1">1 Traveler</option>
+                    <option value="2">2 Travelers</option>
+                    <option value="3">3+ Travelers</option>
+                </select>
+                <button type="submit" class="cta-button">Submit</button>
+            </form>
+            <div id="form-success-message" style="display: none; margin-top: 15px; color: #00ffaa;">
+                Thank you for registering! We’ll contact you soon.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Animate Sections on Scroll ---
+            const sections = document.querySelectorAll('.content-section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+
+            // --- Mobile Hamburger Menu ---
+            const hamburger = document.querySelector('.hamburger');
+            // تم تغيير .nav ul إلى .navbar ul
+            const navLinks = document.querySelector('.navbar ul'); 
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+            });
+            // Close menu when a link is clicked
+            document.querySelectorAll('.navbar ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('nav-active');
+                });
+            });
+
+            // --- Countdown Timer ---
+            const countdownDate = new Date("Jan 1, 2026 00:00:00").getTime();
+
+            const countdownFunction = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById('countdown').innerHTML = "<div>انطلقت الرحلة!</div>";
+                }
+            }, 1000);
+
+            // --- FAQ Accordion ---
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    // Optional: Close all other questions
+                    faqQuestions.forEach(q => {
+                        q.classList.remove('active');
+                        q.nextElementSibling.style.maxHeight = '0px';
+                    });
+                    // Open the clicked one if it wasn't active
+                    if (!isActive) {
+                        question.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+
+            // --- Booking Modal ---
+            const modal = document.getElementById('booking-modal');
+            const openModalButton = document.querySelector('.hero-text .cta-button');
+            const closeModalButton = document.querySelector('.close-button');
+            const bookingForm = document.getElementById('booking-form');
+            const successMessage = document.getElementById('form-success-message');
+
+            const openModal = (e) => {
+                e.preventDefault();
+                modal.classList.add('visible');
+            };
+
+            const closeModal = () => modal.classList.remove('visible');
+
+            openModalButton.addEventListener('click', openModal);
+            closeModalButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                successMessage.style.display = 'block';
+                bookingForm.style.display = 'none';
+                setTimeout(() => {
+                    closeModal();
+                    setTimeout(() => {
+                         bookingForm.reset();
+                         successMessage.style.display = 'none';
+                         bookingForm.style.display = 'flex';
+                    }, 500);
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

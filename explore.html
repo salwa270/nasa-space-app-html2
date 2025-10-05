@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Space Tourism Platform — Explore Beyond Earth</title>
+  <style>
+    *{box-sizing:border-box}
+    html,body{
+      height:100%;
+      font-family:'Poppins', system-ui, Arial;
+      line-height:1.6;
+      background:#07071a;
+      color:#eef;
+      margin:0;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    
+    /* Header */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(14, 20, 40, 0.9); /* خلفية شبه شفافة */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+  
+}
+
+.navbar .logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #A2D9FF;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 25px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.navbar ul li a:hover {
+    opacity: 1;
+    color: #A2D9FF;
+}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ffca28,#4fc3f7);
+      display:flex;align-items:center;justify-content:center;color:#072;font-weight:700;font-size:20px}
+    nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0}
+    nav a{padding:8px 12px;background:rgba(255,255,255,0.05);border-radius:10px;transition:0.3s}
+    nav a:hover{background:rgba(255,255,255,0.15)}
+    
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;margin:24px 0;
+      padding:28px;border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.00));
+      box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .hero h1{font-size:30px;margin-bottom:10px}
+    .hero p{opacity:0.85}
+    .cta{display:flex;gap:12px;margin-top:14px}
+    .btn{background:#2e7d32;padding:10px 16px;border-radius:10px;color:white}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 12px;border-radius:10px}
+    
+    /* Sections */
+    section{margin:28px 0;padding:18px;border-radius:14px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.00))}
+    h2{margin-bottom:10px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{padding:14px;border-radius:12px;background:rgba(255,255,255,0.03)}
+    img.responsive{width:100%;height:180px;object-fit:cover;border-radius:10px}
+    
+    /* Booking */
+    .booking{padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(255,255,255,0.02))}
+    label{display:block;margin:8px 0 6px;font-size:13px}
+    input,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);
+      background:transparent;color:inherit}
+    button{cursor:pointer}
+    
+    /* Team */
+    .team{display:flex;gap:12px;flex-wrap:wrap}
+    .member{min-width:200px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    
+    /* Game */
+    .game-wrap{display:flex;gap:12px;align-items:flex-start}
+    canvas{background:#000;border-radius:10px}
+    
+    footer{padding:18px;text-align:center;opacity:0.8}
+    
+    @media (max-width:900px){.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">ST</div>
+        <div>
+          <div style="font-weight:700">Space Tourism</div>
+          <div style="font-size:12px;opacity:0.8">Safe & Sustainable Space Experience</div>
+        </div>
+      </div>
+        <nav class="navbar">
+    <div class="logo">FUTURE ORBIT</div>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="debries.html">Deberis</a></li>
+      <li><a href="shopping.html">Shopping</a></li>
+      <li><a href="book.html">Book a ticket</a></li>
+      
+    </ul>
+    </header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <h1>Travel Beyond Earth — The Future of Space Tourism</h1>
+      <p>Short 3–5 day orbital trips with panoramic capsules, zero-gravity fun, and 360° VR live streaming to your friends.</p>
+      <div class="cta">
+        <a class="btn" href="#booking">Book Now</a>
+        <a class="secondary" href="#safety">Learn About Safety</a>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px">
+        <div style="padding:10px;background:rgba(255,255,255,0.05);border-radius:10px">
+          <div style="font-size:22px;font-weight:700">3–5 Days</div>
+          <div style="font-size:12px;opacity:0.8">Trip Duration</div>
+        </div>
+        <div style="padding:10px;background:rgba(255,255,255,0.05);border-radius:10px">
+          <div style="font-size:22px;font-weight:700">360°</div>
+          <div style="font-size:12px;opacity:0.8">Live VR Stream</div>
+        </div>
+        <div style="padding:10px;background:rgba(255,255,255,0.05);border-radius:10px">
+          <div style="font-size:22px;font-weight:700">AI</div>
+          <div style="font-size:12px;opacity:0.8">Debris Avoidance</div>
+        </div>
+      </div>
+    </div>
+
+    <aside style="padding:6px">
+      <div class="booking">
+        <h3 id="booking">Booking Form (Demo)</h3>
+        <label>Name</label>
+        <input placeholder="Enter your name">
+        <label>Duration</label>
+        <select>
+          <option>3 Days</option>
+          <option>4 Days</option>
+          <option>5 Days</option>
+        </select>
+        <label>Upgrade</label>
+        <select>
+          <option>Standard Capsule</option>
+          <option>Panoramic Window</option>
+          <option>Private Suite</option>
+        </select>
+        <button style="margin-top:10px;padding:10px;border-radius:8px;background:#1565c0;color:white;border:none;width:100%">Submit Inquiry</button>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Tours -->
+  <section id="tour">
+    <h2>1. Space Tourism — Tours & Experiences</h2>
+    <div class="grid">
+      <div class="card">
+        <img class="responsive" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa" alt="Earth from space">
+        <h3>Earth Observation Tour (3 Days)</h3>
+        <p>Low Earth orbit sightseeing with zero-gravity experiments and guided activities.</p>
+      </div>
+
+      <div class="card">
+        <img class="responsive" src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952" alt="Space capsule">
+        <h3>Space Capsule Experience</h3>
+        <p>Luxury capsules with panoramic windows, gourmet space meals, and VR streaming.</p>
+      </div>
+
+      <div class="card">
+        <img class="responsive" src="https://images.unsplash.com/photo-1507413245164-6160d8298b31" alt="Astronaut">
+        <h3>Special Activities</h3>
+        <p>Take photos near windows, float freely, and join quick science challenges on board.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section id="safety">
+    <h2>2. Safety & Debris Avoidance System</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>System Overview</h3>
+        <p>AI-driven debris tracking combining satellite and radar data for real-time risk assessment.</p>
+      </div>
+
+      <div class="card">
+        <h3>Data Highlights</h3>
+        <ul>
+          <li>Tracked Objects: 26,000+</li>
+          <li>Critical Altitudes: 300–1200 km</li>
+          <li>Collision Alerts per Year: ~0.6%</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Integration with Flights</h3>
+        <p>Safe route planning before launch and real-time updates during missions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform -->
+  <section id="platform">
+    <h2>3. Commercial Platform</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Platform Features</h3>
+        <ul>
+          <li>Book & manage trips</li>
+          <li>Purchase upgrades & souvenirs</li>
+          <li>B2B analytics for debris and orbit data</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Revenue Model</h3>
+        <ul>
+          <li>B2C: Tickets & Upgrades</li>
+          <li>B2B: Data Subscriptions</li>
+          <li>Partnerships & Sponsorships</li>
+        </ul>
+      </div>
+
+      <div class="card product">
+        <img src="https://images.unsplash.com/photo-1612197527775-cc796f45e1cc" alt="Merch">
+        <div>
+          <div style="font-weight:700">Space Debris T-shirt</div>
+          <div style="font-size:13px;opacity:0.85">$35 — Worldwide Shipping</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team">
+    <h2>4. Our Team</h2>
+    <div class="team">
+      <div class="member">
+        <div style="font-weight:700">Salwa Shady</div>
+        <div style="font-size:13px;opacity:0.8">Team Leader</div>
+      </div>
+      <div class="member">
+        <div style="font-weight:700">Rawda baseem</div>
+        <div style="font-size:13px;opacity:0.8">Front-end Developer</div>
+      </div>
+      <div class="member">
+        <div style="font-weight:700">Eman Gamal</div>
+        <div style="font-size:13px;opacity:0.8">UI/UX Designer</div>
+      </div>
+      <div class="member">
+        <div style="font-weight:700">Eman Youssef</div>
+        <div style="font-size:13px;opacity:0.8">Full Stack Developer</div>
+      </div>
+      <div class="member">
+       
+  </section>
+
+  <!-- Mission -->
+  <section>
+    <h2>5. Our Mission</h2>
+    <p>We aim to balance commercial exploration with environmental responsibility — creating a cleaner, safer orbit for future generations.</p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Space Tourism — Demo Design
+</footer>
+
+  </div>
+  
+  <script>
+    // Simple mini-game: Avoid debris
+    const canvas = document.createElement('canvas');
+    canvas.width=320; canvas.height=220;
+    document.querySelector('#platform').appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let ship = {x:150,y:180,w:16,h:10};
+    let debris = [];
+    let keys = {};
+    let score = 0;
+    
+    function spawn(){
+      debris.push({x:Math.random()*300,y:-10,r:6+Math.random()*8,vy:1+Math.random()*1.5});
+      if(debris.length>12) debris.shift();
+    }
+    function update(){
+      if(keys['ArrowLeft']&&ship.x>8) ship.x -= 3;
+      if(keys['ArrowRight']&&ship.x<canvas.width-8) ship.x += 3;
+      debris.forEach(d=> d.y += d.vy);
+      debris = debris.filter(d=>{
+        let dx=d.x-ship.x, dy=d.y-ship.y;
+        let dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<d.r+10){score-=50; d.hit=true;}
+        return d.y<canvas.height+20 && !d.hit;
+      });
+      score+=0.03;
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=0;i<40;i++){
+        ctx.fillStyle='rgba(255,255,255,0.03)';
+        ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height,1,1);
+      }
+      ctx.fillStyle='#4fc3f7';
+      ctx.fillRect(ship.x-8,ship.y-5,ship.w,ship.h);
+      ctx.fillStyle='rgba(255,200,80,0.9)';
+      debris.forEach(d=>{ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();});
+      ctx.fillStyle='white';
+      ctx.font='12px monospace';
+      ctx.fillText('Score: '+Math.max(0,Math.floor(score)),8,16);
+    }
+    document.addEventListener('keydown',e=>{keys[e.key]=true});
+    document.addEventListener('keyup',e=>{keys[e.key]=false});
+    setInterval(spawn,900);
+    function loop(){update();draw();requestAnimationFrame(loop);}
+    loop();
+  </script>
+</body>
+</html>

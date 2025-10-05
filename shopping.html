@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Orbit | Shop</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: monospace;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 20% 20%, #0a0f23, #000);
+      color: white;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      background-color: rgba(14, 20, 40, 0.9);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 1.8em;
+      font-weight: 700;
+      color: #A2D9FF;
+      font-family: "Pacifico", cursive;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    .navbar ul li {
+      margin-right: 25px;
+    }
+
+    .navbar ul li a {
+      color: #FFFFFF;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      opacity: 1;
+      color: #A2D9FF;
+    }
+
+    /* Cart inside navbar */
+    .cart {
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .cart:hover {
+      color: rgb(220, 153, 8);
+      transform: scale(1.05);
+    }
+
+    /* Background */
+    .sec1 {
+      background: url("../images/background.png") no-repeat center center;
+      background-size: cover;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Product Section */
+    .sec2 {
+      padding-top: 120px;
+      padding-bottom: 50px;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px auto;
+      justify-content: center;
+    }
+
+    /* Card Style */
+    .card {
+      width: 260px;
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(162, 217, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(162, 217, 255, 0.2);
+      position: relative;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 25px rgba(162, 217, 255, 0.6);
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin: 15px 0 10px;
+      font-size: 15px;
+      color: #A2D9FF;
+    }
+
+    .price {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 15px;
+      transition: opacity 0.3s ease;
+    }
+
+    .add-to-cart {
+      position: absolute;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(10px);
+      opacity: 0;
+      padding: 10px 20px;
+      border: none;
+      background: linear-gradient(90deg, #A2D9FF, #002B5B);
+      color: black;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.4s ease;
+      pointer-events: none;
+      font-weight: bold;
+    }
+
+    .card:hover .price {
+      opacity: 0;
+    }
+
+    .card:hover .add-to-cart {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .view-btn {
+      background: #06167c;
+      color: white;
+      padding: 10px;
+      border: 1px solid #0a2a8a;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(14, 20, 40, 0.9);
+      padding: 50px 80px;
+      color: white;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #A2D9FF;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #ccc;
+      transition: 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #A2D9FF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">FUTURE ORBIT</div>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="debries.html">Deberis</a></li>
+      <li><a href="shopping.html" class="active">Shopping</a></li>
+      <li><a href="book.html">Book a ticket</a></li>
+      
+      <li>
+        <span class="cart" id="cartBtn">
+          <i class="bi bi-cart3"></i> CART ($<span id="cart-total">0</span>)
+        </span>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Background -->
+  <div class="sec1"></div>
+
+  <!-- Products -->
+  
+    <div class="sec2">
+    <div class="products">
+      <div class="card" data-price="250">
+        <img src="../images/shirt.png" alt="Gold Wall Clock"/>
+        <h3>TODDLER'S SPACEX MARS XPLORER T-SHIRT</h3>
+        
+        <div class="price">$25.00</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="300">
+        <img src="../images/shirt2.png" alt="Black Alarm Clock"/>
+        <h3>Crew 11 Unisex T-Shirt</h3>
+        <br><br><br>
+        <div class="price">LE 919.00 EGP</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="210">
+        <img src="../images/shirt3.png" alt="Anigram Rooster"/>
+        <h3>Unisex Starship Flight 10 T-Shirt</h3>
+        <br><br><br>
+        <div class="price">$35.00</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+    </div>
+
+     <div class="products">
+      <div class="card" data-price="250">
+        <img src="../images/shirt4.png" alt="Gold Wall Clock"/>
+        <h3>TODDLER'S SPACEX MARS XPLORER T-SHIRT</h3>
+       <br><br><br>
+        <div class="price">$25.00</div>
+
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="300">
+        <img src="../images/gift1.png" alt="Black Alarm Clock"/>
+        <h3>Crew 11 Unisex T-Shirt</h3>
+        <br><br><br>
+        <div class="price">LE 919.00 EGP</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="210">
+        <img src="../images/gift2.png" alt="Anigram Rooster"/>
+        <h3>Unisex Starship Flight 10 T-Shirt</h3>
+        <br><br><br>
+        <div class="price">$35.00</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+    </div>
+
+     <div class="products">
+      <div class="card" data-price="250">
+        <img src="../images/plain.png" alt="Gold Wall Clock"/>
+        <h3>LEGO® Icons Shuttle Carrier Aircraft</h3>
+       <br><br><br>
+        <div class="price">$240.00</div>
+
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="300">
+        <img src="../images/gloves.png" alt="Black Alarm Clock"/>
+        <h3>Youth Astronaut Gloves</h3>
+        <br><br><br>
+        <div class="price">$19.99</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="210">
+        <img src="../images/game.png" alt="Anigram Rooster"/>
+        <h3>Build Your Own Space Station Playset</h3>
+        <br><br><br>
+        <div class="price">$9.99</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+    </div>
+
+    <div class="products">
+      <div class="card" data-price="250">
+        <img src="../images/bag1.png" alt="Gold Wall Clock"/>
+        <h3>Loungefly NASA Logos Sparkle Backpack</h3>
+       <br><br><br>
+        <div class="price">$80.00</div>
+
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="300">
+        <img src="../images/bag2.png" alt="Black Alarm Clock"/>
+        <h3>Thread Crossbody Bag NASA Worm</h3>
+        <br><br><br>
+        <div class="price">$44.99</div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+
+      <div class="card" data-price="210">
+        <img src="../images/bag3.png" alt="Anigram Rooster"/>
+        <h3>NASA Logos Mini Backpack Blue</h3>
+        <br><br><br>
+        <div class="price">$39.99/div>
+        <button class="add-to-cart">ADD TO CART</button>
+      </div>
+    </div>
+
+  </div>
+  
+
+  <!-- Footer -->
+    <footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h3>CUSTOMER SERVICE</h3>
+      <ul>
+        <li><a href="#">Help & Contact Us</a></li>
+        <li><a href="#">Returns & Refunds</a></li>
+        <li><a href="#">Online Stores</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>COMPANY</h3>
+      <ul>
+        <li><a href="#">What We Do</a></li>
+        <li><a href="#">Available Services</a></li>
+        <li><a href="#">Latest Posts</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>SOCIAL MEDIA</h3>
+      <ul>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Tumblr</a></li>
+        <li><a href="#">Pinterest</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>PROFILE</h3>
+      <ul>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">Checkout</a></li>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Help & Support</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+ <script>
+  // تفريغ السلة عند تحديث الصفحة
+  localStorage.removeItem("cart");
+  let cart = [];
+
+  function updateCartTotal() {
+    const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+    document.getElementById("cart-total").innerText = total.toFixed(2);
+  }
+
+  // الانتقال للصفحة عند الضغط على أيقونة الكارت في الـ Navbar فقط
+  document.getElementById("cartBtn").addEventListener("click", () => {
+    window.location.href = "cart.html";
+  });
+
+  // عند الضغط على زرار ADD TO CART في أي كارد
+  document.querySelectorAll(".add-to-cart").forEach((button) => {
+    button.addEventListener("click", function () {
+      const card = this.closest(".card");
+      const title = card.querySelector("h3").innerText;
+      const price = parseFloat(card.getAttribute("data-price"));
+      const img = card.querySelector("img").src;
+
+      const existing = cart.find((item) => item.title === title);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ title, price, img, qty: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartTotal();
+
+      // Toast Message
+      let toast = document.createElement("div");
+      toast.innerText = "Added to cart!";
+      toast.style.position = "fixed";
+      toast.style.top = "20px";
+      toast.style.right = "20px";
+      toast.style.background = "#A2D9FF";
+      toast.style.color = "#000";
+      toast.style.padding = "10px 20px";
+      toast.style.borderRadius = "8px";
+      toast.style.zIndex = "9999";
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 1500);
+
+      // تغيير شكل الزرار فقط (من غير تحويل الصفحة)
+      this.textContent = "ADDED ✓";
+      this.disabled = true;
+      this.style.background = "linear-gradient(90deg, #39FF14, #004400)";
+      this.style.color = "#fff";
+      this.style.cursor = "default";
+    });
+  });
+
+  updateCartTotal();
+</script>
+
+</body>
+</html>

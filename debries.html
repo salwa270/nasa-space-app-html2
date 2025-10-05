@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم احترافية - بيانات الفضاء</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        /* ------------------ CSS للتصميم الاحترافي الغامق ------------------ */
+        :root {
+            --primary-color: #00bcd4; /* أزرق سماوي/فيروزي */
+            --secondary-color: #34495e; /* أزرق داكن للخلفية */
+            --card-bg: #1e2b40;      /* خلفية البطاقات */
+            --text-color: #e0e6ed;
+            --grid-gap: 20px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 أعمدة للمقاييس العلوية */
+            gap: var(--grid-gap);
+            margin-bottom: var(--grid-gap);
+        }
+        
+        /* ضبط الشبكة للرسوم البيانية الكبيرة والصغيرة */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2.5fr 1.5fr; /* رسم بياني كبير + رسم بياني صغير */
+            gap: var(--grid-gap);
+        }
+
+        .chart-card, .metric-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s;
+        }
+        
+        .metric-card {
+            text-align: center;
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        .metric-card h4 {
+            color: var(--text-color);
+            opacity: 0.7;
+            margin: 0 0 5px 0;
+            font-size: 0.9em;
+        }
+
+        .metric-card p {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .chart-title {
+            color: var(--text-color);
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        #small-charts-container {
+            display: grid;
+            grid-template-rows: 1fr 1fr; /* رسم بياني واحد فوق الآخر في العمود الثاني */
+            gap: var(--grid-gap);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>لوحة تحكم بيانات الحطام الفضائي والإيرادات</h2>
+
+    <div class="dashboard-grid">
+        <div class="metric-card">
+            <h4>الإيراد الشهري (B2C)</h4>
+            <p>$12,400</p>
+        </div>
+        <div class="metric-card">
+            <h4>نسبة نمو المستخدمين</h4>
+            <p>3.8%</p>
+        </div>
+        <div class="metric-card">
+            <h4>عدد الحطام المتتبع</h4>
+            <p>4,020</p>
+        </div>
+        <div class="metric-card">
+            <h4>إيرادات التراخيص (B2B)</h4>
+            <p>$2,500K</p>
+        </div>
+    </div>
+
+    <div class="charts-section">
+        
+        <div class="chart-card">
+            <div class="chart-title">نظرة عامة (النمو السنوي للإيرادات)</div>
+            <div id="annualRevenueChart"></div>
+        </div>
+
+        <div id="small-charts-container">
+            
+            <div class="chart-card">
+                <div class="chart-title">توزيع المستخدمين حسب المنطقة</div>
+                <div id="userDistributionChart"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-title">كثافة الحطام حسب المدار (LEO)</div>
+                <div id="debrisDensityChart"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة إنشاء الرسوم البيانية
+        const var_primary_color = '#00bcd4';
+
+        // 1. الرسم البياني الخطي - النمو السنوي للإيرادات (Chart 1)
+        function renderAnnualRevenueChart() {
+            const options = {
+                chart: {
+                    type: 'line',
+                    height: '100%',
+                    toolbar: { show: false },
+                    background: 'transparent'
+                },
+                series: [{
+                    name: "الإيرادات",
+                    data: [15000, 25000, 32000, 45000, 40000, 55000, 68000]
+                }],
+                xaxis: {
+                    categories: ['2020', '2021', '2022', '2023', '2024', '2025', '2026'],
+                    labels: { style: { colors: '#a0a7b4' } },
+                    axisBorder: { show: false }
+                },
+                yaxis: {
+                    labels: { style: { colors: '#a0a7b4' }, formatter: (value) => '$' + (value / 1000) + 'K' }
+                },
+                grid: { borderColor: 'rgba(255, 255, 255, 0.1)', xaxis: { lines: { show: true } } },
+                stroke: { curve: 'smooth', colors: [var_primary_color], width: 4 },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.2,
+                        stops: [0, 100],
+                        colorStops: [{ offset: 0, color: var_primary_color, opacity: 0.8 }, { offset: 100, color: '#1e2b40', opacity: 0.2 }]
+                    }
+                },
+                tooltip: { theme: 'dark' }
+            };
+            const chart = new ApexCharts(document.querySelector("#annualRevenueChart"), options);
+            chart.render();
+        }
+
+        // 2. الرسم البياني الدائري - توزيع المستخدمين (Chart 2)
+        function renderUserDistributionChart() {
+            const options = {
+                chart: { type: 'donut', height: '100%' },
+                series: [45, 35, 20], // نسب المستخدمين
+                labels: ['السعودية', 'مصر', 'باقي الدول'],
+                colors: [var_primary_color, '#ff70a6', '#ffc75f'], // ألوان جذابة
+                dataLabels: { enabled: true, style: { colors: ['#000'] } },
+                legend: { position: 'bottom', labels: { colors: '#e0e6ed' } },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                total: { show: true, label: 'الإجمالي', color: '#e0e6ed' }
+                            }
+                        }
+                    }
+                },
+                tooltip: { theme: 'dark' }
+            };
+            const chart = new ApexCharts(document.querySelector("#userDistributionChart"), options);
+            chart.render();
+        }
+
+        // 3. الرسم البياني العمودي - كثافة الحطام (Chart 3)
+        function renderDebrisDensityChart() {
+            const options = {
+                chart: { type: 'bar', height: '100%', toolbar: { show: false } },
+                series: [{ name: 'عدد الأجسام', data: [440, 550, 410, 670, 220] }],
+                xaxis: {
+                    categories: ['200 كم', '400 كم', '600 كم', '800 كم', '1000 كم'],
+                    labels: { style: { colors: '#a0a7b4' } }
+                },
+                yaxis: {
+                    labels: { style: { colors: '#a0a7b4' } }
+                },
+                colors: [var_primary_color],
+                plotOptions: { bar: { horizontal: false, columnWidth: '55%', endingShape: 'rounded' } },
+                dataLabels: { enabled: false },
+                grid: { show: true, borderColor: 'rgba(255, 255, 255, 0.1)' },
+                tooltip: { theme: 'dark' }
+            };
+            const chart = new ApexCharts(document.querySelector("#debrisDensityChart"), options);
+            chart.render();
+        }
+
+        // تشغيل جميع الدوال عند تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", () => {
+            renderAnnualRevenueChart();
+            renderUserDistributionChart();
+            renderDebrisDensityChart();
+        });
+    </script>
+</body>
+</html>
